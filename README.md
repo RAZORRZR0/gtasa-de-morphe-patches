@@ -16,6 +16,27 @@ No PC and no root needed. The mods are built in
    `.ini` is only written when it does not exist yet, so re-patching keeps them.
 
 <!-- PATCHES_START EXPANDED -->
+> **[v1.0.0](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/releases/tag/v1.0.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;4 patches total
+<details open>
+<summary>📦 GTA: SA&nbsp;&nbsp;•&nbsp;&nbsp;4 patches</summary>
+<br>
+
+**Package name:** `com.rockstargames.gtasa.de`
+
+**🎯 Supported versions:**
+
+| 1.87.0 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [GTA Prop Fix](#gta-prop-fix) | Restores map props missing from the Definitive Edition. |  |
+| [ModMenu](#modmenu) | In-game settings menu for the other mods. |  |
+| [Project Props](#project-props) | Project Props 4: about 16,000 extra map props. Downloads the Project Props placements from github.com/user-grinch/Project-Props while patching (needs internet). |  |
+| [SkyGfx](#skygfx) | PS2-style graphics: PS2 timecyc, radiosity, distant lamp coronas, post effects. |  |
+
+</details>
+
 <!-- PATCHES_END -->
 
 Project Props downloads its placements from [user-grinch/Project-Props](https://github.com/user-grinch/Project-Props) while patching (pinned commit, needs internet) and builds `ProjectPropsDE.dat` like the mod repo's `build_props.py`, so this patches file ships none of them.
