@@ -15,12 +15,10 @@ No PC and no root needed. The mods are built in
 3. To add or remove mods, patch again with a different selection. Settings are in the game (ModMenu); a mod's
    `.ini` is only written when it does not exist yet, so re-patching keeps them.
 
-| Patch | Default | |
-|---|---|---|
-| ModMenu | on | In-game settings menu for the other mods |
-| GTA Prop Fix | on | Restores map props missing from the DE |
-| SkyGfx | on | PS2 timecyc, radiosity, distant lamp coronas, post effects |
-| Project Props | on | Project Props 4, about 16,000 extra map props. While patching it downloads the Project Props placements from [user-grinch/Project-Props](https://github.com/user-grinch/Project-Props) (pinned commit; needs internet) and builds `ProjectPropsDE.dat` like the mod repo's `build_props.py`, so this patches file ships none of them |
+<!-- PATCHES_START EXPANDED -->
+<!-- PATCHES_END -->
+
+Project Props downloads its placements from [user-grinch/Project-Props](https://github.com/user-grinch/Project-Props) while patching (pinned commit, needs internet) and builds `ProjectPropsDE.dat` like the mod repo's `build_props.py`, so this patches file ships none of them.
 
 ## How it works
 
