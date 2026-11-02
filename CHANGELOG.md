@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/compare/v1.0.0...v1.1.0) (2026-11-02)
+
+### ✨ New Features
+
+* CLEO, Pak Loader (GTA Radio Restore) and Loading Music patches; logging off by default ([73c1fe5](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/commit/73c1fe58c7bce21bd060b4534b370beec0ebe6e5))
+
 ## 1.0.0 (2026-11-01)
 
 ### ✨ New Features
