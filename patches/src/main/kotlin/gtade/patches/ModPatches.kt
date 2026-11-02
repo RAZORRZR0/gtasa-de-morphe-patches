@@ -71,8 +71,9 @@ val cleoPatch = rawResourcePatch(
 @Suppress("unused")
 val pakLoaderPatch = rawResourcePatch(
     name = "Pak Loader",
-    description = "Loads the .pak files you put in Android/data/com.rockstargames.gtasa.de/paks/ over the game's own " +
-        "files, e.g. the six station paks of GTA Radio Restore (PC). Ships no game files.",
+    description = "Loads Unreal .pak mod files from Android/data/com.rockstargames.gtasa.de/paks/ when the game starts. " +
+        "They load above the game's own paks, so any file a mod pak contains replaces the game's copy " +
+        "(PC Definitive Edition pak mods work as-is). Copy the .pak files there and restart the game. Ships no game files.",
     default = true,
 ) {
     compatibleWith(GTASA_DE)
