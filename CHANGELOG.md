@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/compare/v1.1.0...v1.1.1) (2026-11-02)
+
+### 🐛 Bug Fixes
+
+* ModMenu tabs only for mods with settings, tapping a listed mod no longer opens the Options page; Loading Music config is LoadingMusic.ini ([7c8d109](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/commit/7c8d109e865949df876f70589374642679cbc4da))
+* Pak Loader description explains how pak mods load ([682d6bb](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/commit/682d6bb9f0c1a60110e4281fc90dc2c6636d7b99))
+
 ## [1.1.0](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/compare/v1.0.0...v1.1.0) (2026-11-02)
 
 ### ✨ New Features

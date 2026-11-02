@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "patches": [
     {
       "name": "CLEO",
@@ -112,7 +112,7 @@
     },
     {
       "name": "Pak Loader",
-      "description": "Loads the .pak files you put in Android/data/com.rockstargames.gtasa.de/paks/ over the game's own files, e.g. the six station paks of GTA Radio Restore (PC). Ships no game files.",
+      "description": "Loads Unreal .pak mod files from Android/data/com.rockstargames.gtasa.de/paks/ when the game starts. They load above the game's own paks, so any file a mod pak contains replaces the game's copy (PC Definitive Edition pak mods work as-is). Copy the .pak files there and restart the game. Ships no game files.",
       "default": true,
       "category": null,
       "compatiblePackages": [
