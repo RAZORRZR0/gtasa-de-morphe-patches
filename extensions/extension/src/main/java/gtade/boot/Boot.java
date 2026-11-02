@@ -16,8 +16,8 @@ import java.util.List;
 
 /**
  * GameActivity's static init calls start() right after loadLibrary("UE4") (Mod loader patch).
- * The mod patches put their files in assets/gtade/{mods,configs}/. After each (re)patch this copies them to
- * Android/data/<game>/{mods,configs}, where AML loads them, then loads AML. An existing .ini is kept: it holds
+ * The mod patches put their files in assets/gtade/{mods,configs,cleo}/. After each (re)patch this copies them to
+ * Android/data/<game>/{mods,configs,cleo}, where AML and CLEO load them, then loads AML. An existing .ini is kept: it holds
  * the user's settings. Mod libraries from an earlier patch that are no longer included are deleted.
  */
 public final class Boot {
@@ -49,7 +49,7 @@ public final class Boot {
 
         AssetManager assets = app.getAssets();
         List<String> now = new ArrayList<>();
-        for (String dir : new String[]{"mods", "configs"}) {
+        for (String dir : new String[]{"mods", "configs", "cleo"}) {
             String[] names = assets.list("gtade/" + dir);
             if (names == null) continue;
             for (String n : names) {

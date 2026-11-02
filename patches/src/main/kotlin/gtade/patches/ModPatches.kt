@@ -50,3 +50,44 @@ val projectPropsPatch = rawResourcePatch(
         get("assets/gtade/configs/ProjectPropsDE.dat", false).writeText(dat)
     }
 }
+
+@Suppress("unused")
+val cleoPatch = rawResourcePatch(
+    name = "CLEO",
+    description = "CLEO Android 2.0.1: runs CLEO scripts with the swipe-down CLEO menu, script text and touch. " +
+        "Installs its 14 GTA SA scripts in Android/data/com.rockstargames.gtasa.de/cleo/ (the .csa ones, such as " +
+        "invincibility and regeneration, always run: delete the ones you don't want).",
+    default = false,
+) {
+    compatibleWith(GTASA_DE)
+    dependsOn(modLoaderPatch)
+    execute {
+        addMod("libcleo.so")
+        for (name in String(bundled("cleo.list"), Charsets.UTF_8).lines().filter { it.isNotBlank() })
+            get("assets/gtade/cleo/$name", false).apply { parentFile.mkdirs() }.writeBytes(bundled("cleo/$name"))
+    }
+}
+
+@Suppress("unused")
+val pakLoaderPatch = rawResourcePatch(
+    name = "Pak Loader",
+    description = "Loads the .pak files you put in Android/data/com.rockstargames.gtasa.de/paks/ over the game's own " +
+        "files, e.g. the six station paks of GTA Radio Restore (PC). Ships no game files.",
+    default = true,
+) {
+    compatibleWith(GTASA_DE)
+    dependsOn(modLoaderPatch)
+    execute { addMod("libpakloader.so") }
+}
+
+@Suppress("unused")
+val loadingMusicPatch = rawResourcePatch(
+    name = "Loading Music",
+    description = "Plays one of the game's eight loading-screen themes (S_000-S_007) while a save loads, " +
+        "like the PC SALoadingMusic mod.",
+    default = true,
+) {
+    compatibleWith(GTASA_DE)
+    dependsOn(modLoaderPatch)
+    execute { addMod("libloadingmusic.so", "SALoadingMusic.ini") }
+}
