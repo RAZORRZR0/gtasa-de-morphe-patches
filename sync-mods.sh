@@ -12,7 +12,7 @@ cp "$REPO/loader/aml/libs/arm64-v8a/libAML.so" \
    "$M/skygfx/libs/arm64-v8a/libskygfx.so" "$M/skygfx/SkyGfx.ini" "$M/skygfx/SALodLights.dat" "$M/skygfx/timecyc_ps2.dat" \
    "$M/projectpropsde/libs/arm64-v8a/libprojectpropsde.so" "$M/projectpropsde/ProjectPropsDE.ini" "$M/projectpropsde/ProjectPropsDE.stock" \
    "$M/cleo/libs/arm64-v8a/libcleo.so" "$M/pakloader/libs/arm64-v8a/libpakloader.so" \
-   "$M/loadingmusic/libs/arm64-v8a/libloadingmusic.so" "$M/loadingmusic/SALoadingMusic.ini" \
+   "$M/loadingmusic/libs/arm64-v8a/libloadingmusic.so" "$M/loadingmusic/LoadingMusic.ini" \
    "$DST/"
 ls "$DST"
 # CLEO Android's SA scripts (BSD-3), DE-adapted where needed: copied to Android/data/<game>/cleo/ by the CLEO patch

@@ -89,5 +89,5 @@ val loadingMusicPatch = rawResourcePatch(
 ) {
     compatibleWith(GTASA_DE)
     dependsOn(modLoaderPatch)
-    execute { addMod("libloadingmusic.so", "SALoadingMusic.ini") }
+    execute { addMod("libloadingmusic.so", "LoadingMusic.ini") }
 }
