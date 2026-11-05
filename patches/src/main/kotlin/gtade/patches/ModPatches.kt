@@ -18,8 +18,10 @@ val modMenuPatch = rawResourcePatch(
 
 @Suppress("unused")
 val propFixPatch = rawResourcePatch(
-    name = "Restore missing props",
-    description = "Restores map props that are missing from the Definitive Edition (GTA Prop Fix).",
+    name = "Fix prop physics",
+    description = "Adds GTA Prop Fix, which restores the original game's physics for knocked-over props: lamp posts, " +
+        "traffic lights, signs, bins and hydrants fall and roll with world and car collision instead of DE's " +
+        "physics, and broken pieces land on the ground instead of falling through the map.",
     default = true,
 ) {
     compatibleWith(GTASA_DE)

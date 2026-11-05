@@ -72,7 +72,7 @@ about 2 seconds; it depends on *Load pak mods*, which loads it.
 - **Project Props 4**: [user-grinch](https://github.com/user-grinch/Project-Props).
 - **AML** (Android Mod Loader): RusJJ.
 - **AMD FidelityFX Super Resolution 1** (FSR in *Add PS2 graphics*): AMD, MIT license.
-- SkyGfx, GTA Prop Fix, CLEO, SALoadingMusic: ports of the PC and Android mods of the same names; see the
+- SkyGfx, GTA Prop Fix (prop physics), CLEO, SALoadingMusic: ports of the PC and Android mods of the same names; see the
   [mod loader repo](https://github.com/RAZORRZR0/GTASA-DE-Android-ModLoader) for each one's origin.
 
 ## How it works
