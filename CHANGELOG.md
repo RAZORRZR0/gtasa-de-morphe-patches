@@ -1,3 +1,13 @@
+## [1.2.0](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/compare/v1.1.1...v1.2.0) (2026-11-05)
+
+### ✨ New Features
+
+* Add blowing litter (Rubbish-DE by H4V3NART) and SkyGfx PC graphics settings with AMD FSR 1 upscaling ([5a712ff](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/commit/5a712ffa603f7b857f176e43c35b2a05be32dee7))
+
+### 🐛 Bug Fixes
+
+* warn that split APK sets fail to patch (merged APK over 4 GB), credit mod authors ([5e53cbc](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/commit/5e53cbc3f384eac5e0c23dc1c7e348f9979e1d8a))
+
 ## [1.1.1](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/compare/v1.1.0...v1.1.1) (2026-11-02)
 
 ### 🐛 Bug Fixes

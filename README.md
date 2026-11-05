@@ -33,9 +33,9 @@ No PC and no root needed. The mods are built in
 > Morphe Manager shows the patches as new: check your selection once before patching.
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.1.1](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/releases/tag/v1.1.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;7 patches total
+> **[v1.2.0](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/releases/tag/v1.2.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;8 patches total
 <details open>
-<summary>📦 GTA: SA&nbsp;&nbsp;•&nbsp;&nbsp;7 patches</summary>
+<summary>📦 GTA: SA&nbsp;&nbsp;•&nbsp;&nbsp;8 patches</summary>
 <br>
 
 **Package name:** `com.rockstargames.gtasa.de`
@@ -47,13 +47,14 @@ No PC and no root needed. The mods are built in
 
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
-| [CLEO](#cleo) | CLEO Android 2.0.1: runs CLEO scripts with the swipe-down CLEO menu, script text and touch. Installs its 14 GTA SA scripts in Android/data/com.rockstargames.gtasa.de/cleo/ (the .csa ones, such as invincibility and regeneration, always run: delete the ones you don't want). |  |
-| [GTA Prop Fix](#gta-prop-fix) | Restores map props missing from the Definitive Edition. |  |
-| [Loading Music](#loading-music) | Plays one of the game's eight loading-screen themes (S_000-S_007) while a save loads, like the PC SALoadingMusic mod. |  |
-| [ModMenu](#modmenu) | In-game settings menu for the other mods. |  |
-| [Pak Loader](#pak-loader) | Loads Unreal .pak mod files from Android/data/com.rockstargames.gtasa.de/paks/ when the game starts. They load above the game's own paks, so any file a mod pak contains replaces the game's copy (PC Definitive Edition pak mods work as-is). Copy the .pak files there and restart the game. Ships no game files. |  |
-| [Project Props](#project-props) | Project Props 4: about 16,000 extra map props. Downloads the Project Props placements from github.com/user-grinch/Project-Props while patching (needs internet). |  |
-| [SkyGfx](#skygfx) | PS2-style graphics: PS2 timecyc, radiosity, distant lamp coronas, post effects. |  |
+| [Add CLEO script support](#add-cleo-script-support) | Adds CLEO Android 2.0.1, which runs CLEO scripts with the swipe-down CLEO menu. Installs 14 GTA SA scripts in Android/data/com.rockstargames.gtasa.de/cleo/; the .csa ones, such as invincibility and regeneration, always run, so delete the ones you don't want. |  |
+| [Add PS2 graphics](#add-ps2-graphics) | Adds SkyGfx: PS2 colours and timecyc, radiosity, distant lamp coronas and post effects, the PC graphics settings the phone menu hides (draw distance, shadows, anti-aliasing and more) and AMD FSR 1 upscaling. |  |
+| [Add blowing litter](#add-blowing-litter) | Adds Rubbish-DE by H4V3NART: loose litter on the streets that blows around when vehicles pass. Builds its model pak from the game's own files at the first start, so no game files are shipped. |  |
+| [Add extra map props](#add-extra-map-props) | Adds about 16,000 map props from Project Props 4 by user-grinch. Downloads the placements from github.com/user-grinch/Project-Props while patching, so it needs internet. |  |
+| [Add mod menu](#add-mod-menu) | Adds ModMenu, an in-game menu that changes the settings of the other mods while playing. |  |
+| [Load pak mods](#load-pak-mods) | Loads Unreal .pak mod files from Android/data/com.rockstargames.gtasa.de/paks/ when the game starts, above the game's own paks, so PC Definitive Edition pak mods work as-is. Copy the .pak files there and restart the game. |  |
+| [Play loading screen music](#play-loading-screen-music) | Plays one of the game's eight loading-screen themes while a save loads, like the PC SALoadingMusic mod. |  |
+| [Restore missing props](#restore-missing-props) | Restores map props that are missing from the Definitive Edition (GTA Prop Fix). |  |
 
 </details>
 
