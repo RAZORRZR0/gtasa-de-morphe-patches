@@ -1,3 +1,9 @@
+## [1.2.1](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/compare/v1.2.0...v1.2.1) (2026-11-05)
+
+### 🐛 Bug Fixes
+
+* re-patching an already patched game runs the new mod loader, so Add blowing litter builds its pak instead of leaving piles of litter models ([ec3b79e](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/commit/ec3b79ed98c6dae9e3d639918cb2e11432a146b7))
+
 ## [1.2.0](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/compare/v1.1.1...v1.2.0) (2026-11-05)
 
 ### ✨ New Features
