@@ -13,7 +13,24 @@ No PC and no root needed. The mods are built in
    **The first install replaces the Play Store game, which deletes its saves on the phone**: keep them in
    Rockstar's cloud save or back them up first. Later re-patches are updates and keep them.
 3. To add or remove mods, patch again with a different selection. Settings are in the game (ModMenu); a mod's
-   `.ini` is only written when it does not exist yet, so re-patching keeps them.
+   `.ini` is only written when it does not exist yet (new settings sections are added to it), so re-patching keeps them.
+
+> [!WARNING]
+> **Patch the single full APK (about 860 MB), not a split APK set** (`.apks`, `.apkm`, `.xapk`, or the game as
+> installed from the Play Store, which is a base APK plus asset/config splits). Morphe Manager merges a split set
+> into one APK first, and for this game the merged file is larger than 4 GB, which a zip cannot hold. Patching then
+> fails with:
+>
+> ```
+> java.io.IOException: Failed to read zip file '…/merged-….apk'
+> Caused by: java.io.IOException: File exceeds size limit of 4294967295.
+> ```
+>
+> This is a limit of the APK format, not of these patches, and choosing other patches does not help.
+
+> [!NOTE]
+> Patch names follow Morphe's naming guideline since v1.2.0 (for example *SkyGfx* is now *Add PS2 graphics*), so
+> Morphe Manager shows the patches as new: check your selection once before patching.
 
 <!-- PATCHES_START EXPANDED -->
 > **[v1.1.1](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/releases/tag/v1.1.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;7 patches total
@@ -44,6 +61,19 @@ No PC and no root needed. The mods are built in
 
 Project Props downloads its placements from [user-grinch/Project-Props](https://github.com/user-grinch/Project-Props) while patching (pinned commit, needs internet) and builds `ProjectPropsDE.dat` like the mod repo's `build_props.py`, so this patches file ships none of them.
 
+*Add blowing litter* needs a model pak made from the game's own `GTASA_ModelData`. Instead of shipping it, `Boot`
+builds `paks/904-Rubbish-DE_P.pak` from the installed game (its `pakchunk0`) at the first start after patching, in
+about 2 seconds; it depends on *Load pak mods*, which loads it.
+
+## Credits
+
+- **Rubbish-DE**: the PC mod by **H4V3NART**, ported here to Android (AML mod and on-device pak builder).
+- **Project Props 4**: [user-grinch](https://github.com/user-grinch/Project-Props).
+- **AML** (Android Mod Loader): RusJJ.
+- **AMD FidelityFX Super Resolution 1** (FSR in *Add PS2 graphics*): AMD, MIT license.
+- SkyGfx, GTA Prop Fix, CLEO, SALoadingMusic: ports of the PC and Android mods of the same names; see the
+  [mod loader repo](https://github.com/RAZORRZR0/GTASA-DE-Android-ModLoader) for each one's origin.
+
 ## How it works
 
 - Every mod patch depends on the hidden **mod loader** patch: it adds `lib/arm64-v8a/libAML.so` and the
@@ -51,8 +81,9 @@ Project Props downloads its placements from [user-grinch/Project-Props](https://
   `loadLibrary("UE4")`.
 - Mod patches put their library in `assets/gtade/mods/` and their config/data files in `assets/gtade/configs/`.
 - At the first start after a (re)patch, `Boot` copies them to `Android/data/com.rockstargames.gtasa.de/{mods,configs}`
-  (an existing `.ini` is kept), deletes mod libraries of the previous patch that are no longer included, then loads
-  AML, which loads the mods. Logcat tag `GTADEBoot`.
+  (an existing `.ini` is kept and only gains missing sections), builds the Rubbish-DE pak when that patch is
+  included, deletes mod files of the previous patch that are no longer included, then loads AML, which loads the
+  mods. Logcat tag `GTADEBoot`.
 
 ## Build
 
@@ -67,4 +98,5 @@ Test on a PC with [Morphe Desktop](https://github.com/MorpheApp/morphe-desktop):
 
 ## License
 
-GPLv3 (see `LICENSE`). Bundled: AML (RusJJ, MIT) and the mods from the mod loader repo (MIT).
+GPLv3 (see `LICENSE`). Bundled: AML (RusJJ, MIT), AMD FSR 1 shaders (MIT) and the mods from the mod loader repo (MIT).
+No game files are bundled.
