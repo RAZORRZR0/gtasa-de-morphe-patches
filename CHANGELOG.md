@@ -1,3 +1,9 @@
+## [1.2.2](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/compare/v1.2.1...v1.2.2) (2026-11-05)
+
+### 🐛 Bug Fixes
+
+* GTA Prop Fix patch is named Fix prop physics and describes the prop physics it restores ([edacf47](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/commit/edacf4784555c0b6d1e2ec058fdd887369f71b0b))
+
 ## [1.2.1](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/compare/v1.2.0...v1.2.1) (2026-11-05)
 
 ### 🐛 Bug Fixes

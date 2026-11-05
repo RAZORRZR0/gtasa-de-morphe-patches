@@ -33,7 +33,7 @@ No PC and no root needed. The mods are built in
 > Morphe Manager shows the patches as new: check your selection once before patching.
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.2.1](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/releases/tag/v1.2.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;8 patches total
+> **[v1.2.2](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/releases/tag/v1.2.2)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;8 patches total
 <details open>
 <summary>📦 GTA: SA&nbsp;&nbsp;•&nbsp;&nbsp;8 patches</summary>
 <br>
@@ -52,9 +52,9 @@ No PC and no root needed. The mods are built in
 | [Add blowing litter](#add-blowing-litter) | Adds Rubbish-DE by H4V3NART: loose litter on the streets that blows around when vehicles pass. Builds its model pak from the game's own files at the first start, so no game files are shipped. |  |
 | [Add extra map props](#add-extra-map-props) | Adds about 16,000 map props from Project Props 4 by user-grinch. Downloads the placements from github.com/user-grinch/Project-Props while patching, so it needs internet. |  |
 | [Add mod menu](#add-mod-menu) | Adds ModMenu, an in-game menu that changes the settings of the other mods while playing. |  |
+| [Fix prop physics](#fix-prop-physics) | Adds GTA Prop Fix, which restores the original game's physics for knocked-over props: lamp posts, traffic lights, signs, bins and hydrants fall and roll with world and car collision instead of DE's physics, and broken pieces land on the ground instead of falling through the map. |  |
 | [Load pak mods](#load-pak-mods) | Loads Unreal .pak mod files from Android/data/com.rockstargames.gtasa.de/paks/ when the game starts, above the game's own paks, so PC Definitive Edition pak mods work as-is. Copy the .pak files there and restart the game. |  |
 | [Play loading screen music](#play-loading-screen-music) | Plays one of the game's eight loading-screen themes while a save loads, like the PC SALoadingMusic mod. |  |
-| [Restore missing props](#restore-missing-props) | Restores map props that are missing from the Definitive Edition (GTA Prop Fix). |  |
 
 </details>
 
