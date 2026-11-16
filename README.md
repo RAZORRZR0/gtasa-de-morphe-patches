@@ -72,6 +72,9 @@ about 2 seconds; it depends on *Load pak mods*, which loads it.
 - **Project Props 4**: [user-grinch](https://github.com/user-grinch/Project-Props).
 - **AML** (Android Mod Loader): RusJJ.
 - **AMD FidelityFX Super Resolution 1** (FSR in *Add PS2 graphics*): AMD, MIT license.
+- **SA:COOP** (*Add online co-op*): the original co-op mod and its animation packs by
+  [Karimov-Akbar](https://github.com/Karimov-Akbar/sa-coop) (MIT); Definitive Edition port:
+  [sa-coop-de](https://github.com/RAZORRZR0/sa-coop-de).
 - SkyGfx, GTA Prop Fix (prop physics), CLEO, SALoadingMusic: ports of the PC and Android mods of the same names; see the
   [mod loader repo](https://github.com/RAZORRZR0/GTASA-DE-Android-ModLoader) for each one's origin.
 
@@ -80,16 +83,18 @@ about 2 seconds; it depends on *Load pak mods*, which loads it.
 - Every mod patch depends on the hidden **mod loader** patch: it adds `lib/arm64-v8a/libAML.so` and the
   `gtade.boot.Boot` extension, and calls `Boot.start()` in `GameActivity`'s static init right after
   `loadLibrary("UE4")`.
-- Mod patches put their library in `assets/gtade/mods/` and their config/data files in `assets/gtade/configs/`.
-- At the first start after a (re)patch, `Boot` copies them to `Android/data/com.rockstargames.gtasa.de/{mods,configs}`
-  (an existing `.ini` is kept and only gains missing sections), builds the Rubbish-DE pak when that patch is
-  included, deletes mod files of the previous patch that are no longer included, then loads AML, which loads the
-  mods. Logcat tag `GTADEBoot`.
+- Mod patches put their library in `assets/gtade/mods/`, their config/data files in `assets/gtade/configs/`, CLEO's
+  scripts in `assets/gtade/cleo/` and SA:COOP's animation packs in `assets/gtade/coop/packs/`.
+- At the first start after a (re)patch, `Boot` copies them to the same folders of
+  `Android/data/com.rockstargames.gtasa.de/` (an existing `.ini` is rebuilt from the new one with the user's values
+  kept), builds the Rubbish-DE pak when that patch is included, deletes mod libraries, SA:COOP packs and paks of the
+  previous patch that are no longer included, then loads AML, which loads the mods. Logcat tag `GTADEBoot`.
 
 ## Build
 
 ```sh
-./sync-mods.sh <path to GTASA-DE-Android-ModLoader>   # after its loader/build_aml_arm64.sh and mods/build.sh
+./sync-mods.sh <path to GTASA-DE-Android-ModLoader> <path to sa-coop-de>
+# after loader/build_aml_arm64.sh and mods/build.sh in the first, android/build.sh in the second
 GITHUB_ACTOR=<user> GITHUB_TOKEN=<token with read:packages> ./gradlew buildAndroid
 # -> patches/build/libs/patches-<version>.mpp
 ```
