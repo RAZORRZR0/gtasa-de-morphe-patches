@@ -132,3 +132,7 @@ node_modules/
 # Ignore IDEA files
 .idea/
 local.properties
+
+# Chinatown Wars native build output
+native/ctw/*/obj/
+native/ctw/*/libs/

@@ -1,9 +1,14 @@
-# GTA SA DE Mods: Morphe patches
+# GTA Mods: Morphe patches (San Andreas DE and Chinatown Wars)
 
-[Morphe](https://morphe.software) patches that add the AML mod loader and PC mod ports to
-**GTA: San Andreas – Definitive Edition** for Android (`com.rockstargames.gtasa.de` **1.87.0**, arm64).
-No PC and no root needed. The mods are built in
-[GTASA-DE-Android-ModLoader](https://github.com/RAZORRZR0/GTASA-DE-Android-ModLoader).
+[Morphe](https://morphe.software) patches for two Rockstar games on Android, no PC and no root needed:
+
+- **GTA: San Andreas – Definitive Edition** (`com.rockstargames.gtasa.de` **1.87.0**, arm64): the AML mod loader and
+  PC mod ports. The mods are built in
+  [GTASA-DE-Android-ModLoader](https://github.com/RAZORRZR0/GTASA-DE-Android-ModLoader).
+- **GTA: Chinatown Wars** (`com.rockstargames.gtactw` **4.4.243**, arm64): a cheat menu, and a loader for HD texture
+  packs and replacement radio stations. See [GTA: Chinatown Wars](#gta-chinatown-wars) below.
+
+The sections up to *GTA: Chinatown Wars* are about San Andreas.
 
 ## Use
 
@@ -67,6 +72,74 @@ Project Props downloads its placements from [user-grinch/Project-Props](https://
 builds `paks/904-Rubbish-DE_P.pak` from the installed game (its `pakchunk0`) at the first start after patching, in
 about 2 seconds; it depends on *Load pak mods*, which loads it.
 
+## GTA: Chinatown Wars
+
+For `com.rockstargames.gtactw` **4.4.243** (arm64), the full single APK (about 960 MB).
+
+1. In Morphe Manager add this patch source: `https://github.com/RAZORRZR0/gtasa-de-morphe-patches`
+   ([add](https://morphe.software/add-source?github=RAZORRZR0/gtasa-de-morphe-patches)). It is the same source as for
+   San Andreas.
+2. Select GTA: Chinatown Wars 4.4.243, tick the patches, patch, install.
+   **The first install replaces the Play Store game, which deletes the game's folder in `Android/data`, including
+   your saves (`savegame0`, `savegame1`…)**: copy `Android/data/com.rockstargames.gtactw/files/` somewhere first and
+   copy it back after installing. Later re-patches are updates and keep everything.
+3. Optional: copy texture and radio packs to `Android/data/com.rockstargames.gtactw/files/` (see below) and restart
+   the game.
+
+| Patch | What it does |
+|---|---|
+| **Add cheat menu** | A **MOD** button at the top of the screen opens a menu on the left, over the running game (it does not pause it). Player: god mode, infinite ammo, never wanted, one-hit kills, health, armour, wanted level up/down/clear, money (+$10K, +$100K, +$1M), drug stash. Vehicle: spawner for all 103 vehicles grouped by class (cars, bikes, boats, helicopters, tanks) with search, put me in the spawned car, indestructible vehicle, nitro. Weapons: the four weapon sets, any single weapon, explosive pistol. World: freeze the clock and mission timers, traffic/pedestrian/cop density (off, normal, high), fast clock, time of day, seven weathers. Teleport: to the map waypoint, save and return to a spot. |
+| **Load texture and radio packs** | At each start, loads the packs present in `Android/data/com.rockstargames.gtactw/files/`: `DXT.bin` (3D world texture sheets), `CTWHD.bin` (HD cutscene panels, portraits and menus), `radio/<station>.mp3` (radio stations) and `radio/names.txt` (station names). Any of them can be left out. No packs are included; [tools/ctw](tools/ctw/README.md) makes them. |
+
+### Packs
+
+[tools/ctw/README.md](tools/ctw/README.md) explains how to make them from your own copies, with two scripts:
+`ctwtex.py` extracts the game's textures and packs your upscaled versions, `make_radio.py` turns audio files
+(MP3, FLAC, the PSP's `.AT3`…) into stations the game plays, with optional station names, including presets for the
+GTA IV radio mod for the PSP version by AshleyVT92. Packs are not published here because they are made from the
+game's art and from other people's mods and music.
+
+### FAQ
+
+**Which APK works?** The full `com.rockstargames.gtactw` 4.4.243 APK for arm64 (one file, about 960 MB). Other
+versions are refused because the mods use this build's code addresses; patching with *force* builds an APK whose
+mods turn themselves off when a function is missing, but untested.
+
+**My saves are gone after installing.** Android deletes an app's `Android/data` folder when the original is
+uninstalled to make room for the patched one. Copy the `savegame*` files back into
+`Android/data/com.rockstargames.gtactw/files/` (the game must have been started once, so the folder exists). With a
+Rockstar account the cloud save also works.
+
+**I don't see the MOD button.** It appears once the game screen (not the Rockstar sign-in or the legal screen) is
+showing. Check that *Add cheat menu* was ticked; logcat tags `CTWMenu` and `CTW Mod Menu` show what failed.
+
+**Does the menu work in missions?** Yes. Cheats behave like the game's own cheats (the same functions); freezing time
+also stops mission countdowns. Spawning a vehicle takes about 2 seconds while its model loads.
+
+**The radio plays static.** The MP3 starts with a tag (ID3). Make the station with `make_radio.py`, which writes
+files without one, or strip the tag with any tag editor.
+
+**A radio station is shorter / not replaced.** Station files must be named `radio1` … `radio5`, `khalil`,
+`tortoise`, `wonderwheel`, `anvil`, `chinese`, `dfa` (`.mp3`, lower case) inside `files/radio/`. Missing stations
+keep the game's own. Stations can be hours long.
+
+**Can I change the station logos?** Not with these patches; only the audio and the eight text names. Anvil,
+Sinowav FM and DFA have no text name in the game.
+
+**The textures don't look much sharper.** The game draws the world from far above and without mipmaps, so 2x
+textures mostly sharpen signs and close walls. Roads and pavements are not texture sheets the packs can replace.
+
+**The radar is a blue disc.** That comes from radar map tiles in a `CTWHD.bin` made by other tools; `ctwtex.py
+sidecar` skips them. Rebuild the pack with it.
+
+**How do I turn a pack off?** Rename or delete its file (`DXT.bin`, `CTWHD.bin`) or the `radio` folder, and
+restart the game. To switch between two radio sets, keep them in folders and swap the names.
+
+**Does this need root, Frida or a PC?** No. The patched game loads the mods itself (AML, see *How it works*).
+
+**Space needed.** The patched APK is about the size of the original. Packs: `DXT.bin` about 200 MB, `CTWHD.bin`
+about 730 MB, a GTA IV radio set about 750 MB.
+
 ## Credits
 
 - **Rubbish-DE**: the PC mod by **H4V3NART**, ported here to Android (AML mod and on-device pak builder).
@@ -78,6 +151,11 @@ about 2 seconds; it depends on *Load pak mods*, which loads it.
   [sa-coop-de](https://github.com/RAZORRZR0/sa-coop-de).
 - SkyGfx, GTA Prop Fix (prop physics), CLEO, SALoadingMusic: ports of the PC and Android mods of the same names; see the
   [mod loader repo](https://github.com/RAZORRZR0/GTASA-DE-Android-ModLoader) for each one's origin.
+- **Chinatown Wars**: cheat menu, pack loader and pack tools by RAZORRZR0 (this repo). Pack tools credit: the GTA IV
+  radio mod for the PSP version by [AshleyVT92](https://www.youtube.com/@AshleyVT92) (the station name presets);
+  [4x-UltraSharpV2](https://huggingface.co/Kim2091/UltraSharpV2) by Kim2091 and
+  [1x DXTDecompressor Source V3](https://openmodeldb.info/models/1x-DXTDecompressor-Source-V3) by josephthekp (the
+  upscaling models the guide recommends). GTA: Chinatown Wars and its art, text and music belong to Rockstar Games.
 
 ## How it works
 
@@ -90,12 +168,20 @@ about 2 seconds; it depends on *Load pak mods*, which loads it.
   `Android/data/com.rockstargames.gtasa.de/` (an existing `.ini` is rebuilt from the new one with the user's values
   kept), builds the Rubbish-DE pak when that patch is included, deletes mod libraries, SA:COOP packs and paks of the
   previous patch that are no longer included, then loads AML, which loads the mods. Logcat tag `GTADEBoot`.
+- Chinatown Wars uses the same `Boot`: its hidden loader patch calls `Boot.start()` in
+  `com.rockstargames.oswrapper.GameNative`'s static init right after `loadLibrary("Game")`, so AML and the mods load
+  before the game initialises and their hooks are in place before any texture, sound or text is read. *Add cheat
+  menu* also calls `ctw.menu.Menu.install()` there, which shows the menu (a WebView) when `GameActivity` resumes;
+  `libctwmenu.so` registers the menu's natives and runs its actions on the game thread. `libctwpacks.so` hooks the
+  game's asset opening (`NvFOpen`), its texture-override lookup (`TryDXTSize`/`GetDXTData`) and its text loading
+  (`InitGlobalText`). Sources: `native/ctw/`.
 
 ## Build
 
 ```sh
 ./sync-mods.sh <path to GTASA-DE-Android-ModLoader> <path to sa-coop-de>
 # after loader/build_aml_arm64.sh and mods/build.sh in the first, android/build.sh in the second
+native/ctw/build.sh   # Chinatown Wars mods -> patches/src/main/resources/ctw/
 GITHUB_ACTOR=<user> GITHUB_TOKEN=<token with read:packages> ./gradlew buildAndroid
 # -> patches/build/libs/patches-<version>.mpp
 ```
@@ -106,4 +192,4 @@ Test on a PC with [Morphe Desktop](https://github.com/MorpheApp/morphe-desktop):
 ## License
 
 GPLv3 (see `LICENSE`). Bundled: AML (RusJJ, MIT), AMD FSR 1 shaders (MIT) and the mods from the mod loader repo (MIT).
-No game files are bundled.
+No game files, game art or music are bundled.
