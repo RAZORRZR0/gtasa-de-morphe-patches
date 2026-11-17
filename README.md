@@ -38,7 +38,7 @@ The sections up to *GTA: Chinatown Wars* are about San Andreas.
 > Morphe Manager shows the patches as new: check your selection once before patching.
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.4.0](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/releases/tag/v1.4.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;11 patches total
+> **[v1.5.0](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/releases/tag/v1.5.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;12 patches total
 <details open>
 <summary>📦 GTA: SA&nbsp;&nbsp;•&nbsp;&nbsp;9 patches</summary>
 <br>
@@ -65,7 +65,7 @@ The sections up to *GTA: Chinatown Wars* are about San Andreas.
 </details>
 
 <details open>
-<summary>📦 GTA: Chinatown Wars&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
+<summary>📦 GTA: Chinatown Wars&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>
 
 **Package name:** `com.rockstargames.gtactw`
@@ -78,7 +78,8 @@ The sections up to *GTA: Chinatown Wars* are about San Andreas.
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
 | [Add cheat menu](#add-cheat-menu) | Adds a MOD button that opens a cheat menu over the running game: god mode, infinite ammo, never wanted, one-hit kills, money, weapons, a vehicle spawner sorted by class, indestructible vehicle, nitro, time, weather, traffic and pedestrian density, freezing mission timers and teleporting to the map waypoint. |  |
-| [Load texture and radio packs](#load-texture-and-radio-packs) | Loads texture packs (DXT.bin, CTWHD.bin) and radio stations (radio/*.mp3, radio/names.txt) from Android/data/com.rockstargames.gtactw/files/ when the game starts. No packs are included: see the patches' README for how to make or install them. |  |
+| [Download HD texture pack](#download-hd-texture-pack) | The first time the game opens without the HD textures, offers to download them (965 MB, AI-upscaled 3D world and 2D art, from github.com/RAZORRZR0/ctw-packs). Interrupted downloads resume. |  |
+| [Load texture and radio packs](#load-texture-and-radio-packs) | Loads texture packs (DXT.bin, CTWHD.bin) and radio stations (radio/*.mp3, names.txt, station logos) from Android/data/com.rockstargames.gtactw/files/ when the game starts. With the cheat menu, its Packs tab imports radio stations from a zip or folder, converting the PSP version's .AT3 files on the phone; the GTA IV radio mod for the PSP version also gets its station names and logos. No music is included. |  |
 
 </details>
 

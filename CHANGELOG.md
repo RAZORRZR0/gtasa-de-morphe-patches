@@ -1,3 +1,9 @@
+## [1.5.0](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/compare/v1.4.0...v1.5.0) (2026-11-17)
+
+### ✨ New Features
+
+* GTA: Chinatown Wars: Download HD texture pack, and import radio stations on the phone ([2a34734](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/commit/2a347349466486d15571621ad4203a5a49c18cf1))
+
 ## [1.4.0](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/compare/v1.3.0...v1.4.0) (2026-11-17)
 
 ### ✨ New Features
