@@ -101,21 +101,40 @@ For `com.rockstargames.gtactw` **4.4.243** (arm64), the full single APK (about 9
    **The first install replaces the Play Store game, which deletes the game's folder in `Android/data`, including
    your saves (`savegame0`, `savegame1`…)**: copy `Android/data/com.rockstargames.gtactw/files/` somewhere first and
    copy it back after installing. Later re-patches are updates and keep everything.
-3. Optional: copy texture and radio packs to `Android/data/com.rockstargames.gtactw/files/` (see below) and restart
-   the game.
+3. Optional: radio stations from other games or mods: make a radio folder (see [Packs](#packs)) and import it from
+   the MOD menu's **Packs** tab.
 
 | Patch | What it does |
 |---|---|
 | **Add cheat menu** | A **MOD** button at the top of the screen opens a menu on the left, over the running game (it does not pause it). Player: god mode, infinite ammo, never wanted, one-hit kills, health, armour, wanted level up/down/clear, money (+$10K, +$100K, +$1M), drug stash. Vehicle: spawner for all 103 vehicles grouped by class (cars, bikes, boats, helicopters, tanks) with search, put me in the spawned car, indestructible vehicle, nitro. Weapons: the four weapon sets, any single weapon, explosive pistol. World: freeze the clock and mission timers, traffic/pedestrian/cop density (off, normal, high), fast clock, time of day, seven weathers. Teleport: to the map waypoint, save and return to a spot. |
-| **Load texture and radio packs** | At each start, loads the packs present in `Android/data/com.rockstargames.gtactw/files/`: `DXT.bin` (3D world texture sheets), `CTWHD.bin` (HD cutscene panels, portraits and menus), `radio/<station>.mp3` (radio stations) and `radio/names.txt` (station names). Any of them can be left out. No packs are included; [tools/ctw](tools/ctw/README.md) makes them. |
+| **Load texture and radio packs** | At each start, loads the packs present in `Android/data/com.rockstargames.gtactw/files/`: `DXT.bin` (3D world texture sheets), `CTWHD.bin` (HD cutscene panels, portraits and menus), and the `radio/` folder: station MP3s, `names.txt` (station names), `ss_radio.png` and `radio_menu.png` (station logos of the car radio and the pause menu). Any of them can be left out. With *Add cheat menu*, its **Packs** tab imports a radio folder and removes it again. |
+| **Download HD texture pack** | The first time the game screen opens without `DXT.bin` and `CTWHD.bin`, offers to download them (965 MB) from [ctw-packs](https://github.com/RAZORRZR0/ctw-packs/releases/tag/v1), with a progress bar while you keep playing. An interrupted download resumes; files already there (also your own packs) are kept. Restart the game afterwards. |
 
 ### Packs
 
-[tools/ctw/README.md](tools/ctw/README.md) explains how to make them from your own copies, with two scripts:
-`ctwtex.py` extracts the game's textures and packs your upscaled versions, `make_radio.py` turns audio files
-(MP3, FLAC, the PSP's `.AT3`…) into stations the game plays, with optional station names, including presets for the
-GTA IV radio mod for the PSP version by AshleyVT92. Packs are not published here because they are made from the
-game's art and from other people's mods and music.
+**HD textures** come with *Download HD texture pack*: no PC needed. To make your own instead, see
+[tools/ctw/README.md](tools/ctw/README.md) (`ctwtex.py`).
+
+**Radio stations are not shipped** (the music belongs to its labels and Rockstar); the game imports them on the phone.
+
+**GTA IV radio** (the mod for the PSP version by [AshleyVT92](https://www.youtube.com/@AshleyVT92), 22 GTA IV
+stations in two parts of 11):
+
+1. Download its zip to the phone:
+   [GTA CW (PSP EDITION) MOD IV FULL RADIO STATIONS ASHLEY VER.zip](https://drive.google.com/file/d/1yNyH9afA7Jfxg9J8drI_d8Bnlaae5yAA/view)
+   (1.3 GB). No need to unzip it.
+2. In the game, open **MOD → Packs → Import radio (.zip)**, pick the zip, then **Parte 1** or **Parte 2**.
+3. Wait while the phone converts the PSP's `.AT3` audio to MP3 (a few minutes; the game keeps running). The station
+   names and logos of that part are added too.
+4. Close the game when asked and open it again.
+
+**Other music:** stations as `.mp3` (or `.AT3`) named `radio1` … `radio5`, `khalil`, `tortoise`, `wonderwheel`,
+`anvil`, `chinese`, `dfa`, in a folder or zip; import it the same way (**Import radio folder** for a folder). For other
+formats, station names and logos, `make_radio.py` makes such a folder on a PC (see
+[tools/ctw/README.md](tools/ctw/README.md)).
+
+**Packs → Remove radio pack** goes back to the game's own stations. To switch between parts or sets, import the other
+one.
 
 ### FAQ
 
@@ -134,15 +153,23 @@ showing. Check that *Add cheat menu* was ticked; logcat tags `CTWMenu` and `CTW 
 **Does the menu work in missions?** Yes. Cheats behave like the game's own cheats (the same functions); freezing time
 also stops mission countdowns. Spawning a vehicle takes about 2 seconds while its model loads.
 
-**The radio plays static.** The MP3 starts with a tag (ID3). Make the station with `make_radio.py`, which writes
-files without one, or strip the tag with any tag editor.
+**The radio plays static.** The MP3 starts with a tag (ID3). Import drops it; if you copy files by hand, make them
+with `make_radio.py`, which writes files without one.
 
 **A radio station is shorter / not replaced.** Station files must be named `radio1` … `radio5`, `khalil`,
-`tortoise`, `wonderwheel`, `anvil`, `chinese`, `dfa` (`.mp3`, lower case) inside `files/radio/`. Missing stations
-keep the game's own. Stations can be hours long.
+`tortoise`, `wonderwheel` (or `toth`), `anvil`, `chinese`, `dfa` (`.mp3` or `.AT3`). Missing stations keep the
+game's own. Stations can be hours long.
 
-**Can I change the station logos?** Not with these patches; only the audio and the eight text names. Anvil,
-Sinowav FM and DFA have no text name in the game.
+**Can I change the station logos?** The GTA IV radio import adds them. For your own,
+`make_radio.py --logos LOGO_DIR --apk GAME_APK` builds `ss_radio.png` (car radio) and `radio_menu.png` (pause menu)
+from one image per station. Anvil, Sinowav FM and DFA have no text name in the game, only the logo.
+
+**Import says "no stations found" or "cannot read the zip".** The zip or folder must hold station files named as
+above (in any subfolder). A zip has to be on the phone itself: download it first rather than picking it from Google
+Drive in the picker. The Packs tab only shows when *Load texture and radio packs* was ticked.
+
+**How long does the GTA IV import take, and how much space?** About 2 minutes per part on a recent phone, about
+700 MB per part. Remove the 1.3 GB zip afterwards if you like.
 
 **The textures don't look much sharper.** The game draws the world from far above and without mipmaps, so 2x
 textures mostly sharpen signs and close walls. Roads and pavements are not texture sheets the packs can replace.
@@ -150,13 +177,15 @@ textures mostly sharpen signs and close walls. Roads and pavements are not textu
 **The radar is a blue disc.** That comes from radar map tiles in a `CTWHD.bin` made by other tools; `ctwtex.py
 sidecar` skips them. Rebuild the pack with it.
 
-**How do I turn a pack off?** Rename or delete its file (`DXT.bin`, `CTWHD.bin`) or the `radio` folder, and
-restart the game. To switch between two radio sets, keep them in folders and swap the names.
+**How do I turn a pack off?** Radio: **MOD → Packs → Remove radio pack**. Textures: delete `DXT.bin` and
+`CTWHD.bin` in `Android/data/com.rockstargames.gtactw/files/` (with *Download HD texture pack* the game then offers
+them again at the next start; patch without it to stop that).
 
-**Does this need root, Frida or a PC?** No. The patched game loads the mods itself (AML, see *How it works*).
+**Does this need root, Frida or a PC?** No. The patched game loads the mods itself (AML, see *How it works*), and
+imports the GTA IV radio on the phone. A PC is only needed to turn other music formats into stations.
 
-**Space needed.** The patched APK is about the size of the original. Packs: `DXT.bin` about 200 MB, `CTWHD.bin`
-about 730 MB, a GTA IV radio set about 750 MB.
+**Space needed.** The patched APK is about the size of the original. HD textures: 965 MB. A GTA IV radio part about
+700 MB.
 
 ## Credits
 
@@ -169,11 +198,14 @@ about 730 MB, a GTA IV radio set about 750 MB.
   [sa-coop-de](https://github.com/RAZORRZR0/sa-coop-de).
 - SkyGfx, GTA Prop Fix (prop physics), CLEO, SALoadingMusic: ports of the PC and Android mods of the same names; see the
   [mod loader repo](https://github.com/RAZORRZR0/GTASA-DE-Android-ModLoader) for each one's origin.
-- **Chinatown Wars**: cheat menu, pack loader and pack tools by RAZORRZR0 (this repo). Pack tools credit: the GTA IV
-  radio mod for the PSP version by [AshleyVT92](https://www.youtube.com/@AshleyVT92) (the station name presets);
-  [4x-UltraSharpV2](https://huggingface.co/Kim2091/UltraSharpV2) by Kim2091 and
-  [1x DXTDecompressor Source V3](https://openmodeldb.info/models/1x-DXTDecompressor-Source-V3) by josephthekp (the
-  upscaling models the guide recommends). GTA: Chinatown Wars and its art, text and music belong to Rockstar Games.
+- **Chinatown Wars**: cheat menu, pack loader, HD texture pack and pack tools by RAZORRZR0 (this repo). The HD pack
+  was upscaled with [4x-UltraSharpV2](https://huggingface.co/Kim2091/UltraSharpV2) by Kim2091 and
+  [1x DXTDecompressor Source V3](https://openmodeldb.info/models/1x-DXTDecompressor-Source-V3) by josephthekp. GTA IV
+  radio import: the radio mod for the PSP version by [AshleyVT92](https://www.youtube.com/@AshleyVT92) (its audio is
+  converted on the phone; its station names and logos are recreated here). The converter uses
+  [FFmpeg](https://ffmpeg.org)'s ATRAC3plus decoder (LGPL 2.1) and [LAME](https://lame.sourceforge.io) (LGPL 2),
+  built from source by `native/ctw/ctwpacks/build_codecs.sh`. GTA: Chinatown Wars and its art, text and music belong
+  to Rockstar Games; GTA IV's station logos and music to Rockstar Games and their owners.
 
 ## How it works
 
@@ -191,8 +223,10 @@ about 730 MB, a GTA IV radio set about 750 MB.
   before the game initialises and their hooks are in place before any texture, sound or text is read. *Add cheat
   menu* also calls `ctw.menu.Menu.install()` there, which shows the menu (a WebView) when `GameActivity` resumes;
   `libctwmenu.so` registers the menu's natives and runs its actions on the game thread. `libctwpacks.so` hooks the
-  game's asset opening (`NvFOpen`), its texture-override lookup (`TryDXTSize`/`GetDXTData`) and its text loading
-  (`InitGlobalText`). Sources: `native/ctw/`.
+  game's asset opening (`NvFOpen`), its texture-override lookup (`TryDXTSize`/`GetDXTData`, also for the pause-menu
+  station logos) and its text loading (`InitGlobalText`). *Download HD texture pack* calls `ctw.packs.Packs.installHd()`
+  there; the menu's Packs tab copies a picked folder (Storage Access Framework) to `files/radio/`. Sources:
+  `native/ctw/`, `extensions/extension/src/main/java/ctw/`.
 
 ## Build
 

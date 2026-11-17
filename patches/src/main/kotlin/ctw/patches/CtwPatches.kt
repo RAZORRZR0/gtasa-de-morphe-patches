@@ -31,6 +31,7 @@ val GTA_CTW = Compatibility(
 
 private const val GAME_NATIVE = "Lcom/rockstargames/oswrapper/GameNative;"
 private const val MENU_INSTALL = "Lctw/menu/Menu;->install()V"
+private const val HD_INSTALL = "Lctw/packs/Packs;->installHd()V"
 
 /** Bytes of a file bundled in this patches file under src/main/resources/ctw/. */
 private fun bundled(name: String): ByteArray =
@@ -61,7 +62,9 @@ internal val ctwLoaderPatch = bytecodePatch {
         val clinit = mutableClassDefBy(GAME_NATIVE).methods.first { it.name == "<clinit>" }
         val insns = clinit.instructions
         // An already patched APK has the calls these patches add; the menu patch adds its own again when selected.
-        for (i in insns.indices.reversed()) if (isBootStart(insns[i]) || isInvoke(insns[i], MENU_INSTALL)) clinit.removeInstruction(i)
+        for (i in insns.indices.reversed()) {
+            if (isBootStart(insns[i]) || isInvoke(insns[i], MENU_INSTALL) || isInvoke(insns[i], HD_INSTALL)) clinit.removeInstruction(i)
+        }
         val game = insns.indices.filter { loadLibraryArg(insns, it) == "Game" }
         if (game.size != 1) throw PatchException("expected one loadLibrary(\"Game\") in GameNative.<clinit>, found ${game.size}")
         clinit.addInstruction(game[0] + 1, "invoke-static {}, $BOOT_START")
@@ -95,12 +98,37 @@ val cheatMenuPatch = bytecodePatch(
 @Suppress("unused")
 val packsPatch = rawResourcePatch(
     name = "Load texture and radio packs",
-    description = "Loads texture packs (DXT.bin, CTWHD.bin) and radio stations (radio/*.mp3, radio/names.txt) from " +
-        "Android/data/com.rockstargames.gtactw/files/ when the game starts. No packs are included: see the patches' " +
-        "README for how to make or install them.",
+    description = "Loads texture packs (DXT.bin, CTWHD.bin) and radio stations (radio/*.mp3, names.txt, station logos) " +
+        "from Android/data/com.rockstargames.gtactw/files/ when the game starts. With the cheat menu, its Packs tab " +
+        "imports radio stations from a zip or folder, converting the PSP version's .AT3 files on the phone; the GTA IV " +
+        "radio mod for the PSP version also gets its station names and logos. No music is included.",
     default = true,
 ) {
     compatibleWith(GTA_CTW)
     dependsOn(ctwLoaderPatch)
-    execute { addMod("libctwpacks.so") }
+    execute {
+        addMod("libctwpacks.so")
+        // Station logos the Packs tab adds when it imports the GTA IV radio mod for the PSP version (logo sheets in the
+        // game's ss_radio.png layout).
+        for (part in 1..2) get("assets/ctw/radio/gta4-psp-part$part.png", false)
+            .apply { parentFile.mkdirs() }.writeBytes(bundled("gta4-psp-part$part.png"))
+    }
+}
+
+@Suppress("unused")
+val hdDownloadPatch = bytecodePatch(
+    name = "Download HD texture pack",
+    description = "The first time the game opens without the HD textures, offers to download them (965 MB, " +
+        "AI-upscaled 3D world and 2D art, from github.com/RAZORRZR0/ctw-packs). Interrupted downloads resume.",
+    default = true,
+) {
+    compatibleWith(GTA_CTW)
+    dependsOn(ctwLoaderPatch, packsPatch)
+
+    execute {
+        val clinit = mutableClassDefBy(GAME_NATIVE).methods.first { it.name == "<clinit>" }
+        val boot = clinit.instructions.indexOfFirst { isBootStart(it) }
+        if (boot < 0) throw PatchException("mod loader call not found in GameNative.<clinit>")
+        clinit.addInstruction(boot + 1, "invoke-static {}, $HD_INSTALL")
+    }
 }

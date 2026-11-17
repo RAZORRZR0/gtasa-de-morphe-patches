@@ -13,6 +13,8 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import ctw.packs.Packs;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -130,6 +132,10 @@ public final class Menu {
             boolean on = !toggles.get(id);
             toggles.put(id, on);
             nativeToggle(id, on);
+        } else if (id.startsWith("radio")) {
+            web.setVisibility(View.GONE);
+            if (id.equals("radioRemove")) Packs.removeRadio(attached);
+            else Packs.importRadio(attached, id.equals("radioZip"));
         } else if (id.startsWith("set")) nativeAction("set", Integer.parseInt(id.substring(3)));
         else if (id.equals("m100k")) nativeAction("money", 100000);
         else if (id.equals("m1m")) nativeAction("money", 1000000);
@@ -190,6 +196,13 @@ public final class Menu {
         row(teleport, "b", "tps", "Save this spot");
         row(teleport, "b", "tpl", "Go to saved spot");
         m.put("Player", player).put("Vehicle", vehicle).put("Weapons", weapons).put("World", world).put("Teleport", teleport);
+        if (Packs.loaderPresent(attached)) {  // "Load texture and radio packs" patch
+            JSONArray packs = new JSONArray();
+            row(packs, "b", "radioZip", "Import radio (.zip)");
+            row(packs, "b", "radioFolder", "Import radio folder");
+            if (Packs.hasRadio(attached)) row(packs, "b", "radioRemove", "Remove radio pack");
+            m.put("Packs", packs);
+        }
         return m.toString();
     }
 

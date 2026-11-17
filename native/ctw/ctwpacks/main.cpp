@@ -5,7 +5,9 @@
 //   CTWHD.bin        HD versions of game.pak textures, served through TryDXTSize/GetDXTData. Each entry is a game
 //                    resource: 12-byte header with the ORIGINAL size and format 0xBEEF (PNG) + a bigger PNG; the game
 //                    uploads a PNG at its decoded size but lays 2D art out by the header size, so layouts stay intact.
-//   radio/<asset>    replaces the APK asset of that name, e.g. radio1.mp3 (mono 44.1 kHz CBR mp3 without ID3 tags).
+//   radio/<asset>    replaces the APK asset of that name, e.g. radio1.mp3 (mono 44.1 kHz CBR mp3 without ID3 tags) or
+//                    ss_radio.png (station logos of the car radio, 2048x512 for the 1024x256 original).
+//   radio/radio_menu.png  station logos of the pause menu (game.pak texture 2861, 1024x256, same layout; may be 2x).
 //   radio/names.txt  "0xe0=Name" lines: replaces entries of the game's text table (E_MAIN.gxt), e.g. station names.
 // Pack formats and builders: tools/ctw/ in the patches repo.
 #include <mod/amlmod.h>
@@ -18,6 +20,8 @@
 #include <vector>
 #include <unordered_map>
 
+bool registerRadioConverter(JNIEnv* env);  // radio.cpp
+
 MYMOD(net.razorrzr0.ctwpacks, CTW Packs, 1.0, RAZORRZR0)
 NEEDGAME(com.rockstargames.gtactw)
 
@@ -25,8 +29,9 @@ static std::string gDir;             // Android/data/<pkg>/files/
 static std::string gDxt;             // gDir + "DXT.bin" when present
 static bool gRadio;                  // gDir + "radio/" exists
 static uintptr_t gLib;
-struct Entry { uint32_t off, size; };
-static std::unordered_map<uint32_t, Entry> gHd;  // CTWHD.bin index
+struct Entry { uint32_t off, size; const uint8_t* mem; };  // mem: served from memory instead of CTWHD.bin
+static std::unordered_map<uint32_t, Entry> gHd;  // CTWHD.bin index and radio_menu.png
+static std::vector<uint8_t> gMenuLogos;
 static int gHdFd = -1;
 static std::vector<std::pair<uint32_t, std::u16string>> gNames;
 
@@ -70,7 +75,8 @@ DECL_HOOKp(GetDXTData, uint32_t id, uint32_t* size)
     if (e == gHd.end() || !size || *size != e->second.size) return GetDXTData(id, size);
     void* buf = malloc(e->second.size);
     if (!buf) return GetDXTData(id, size);
-    if (pread(gHdFd, buf, e->second.size, e->second.off) != (ssize_t)e->second.size) {
+    if (e->second.mem) memcpy(buf, e->second.mem, e->second.size);
+    else if (pread(gHdFd, buf, e->second.size, e->second.off) != (ssize_t)e->second.size) {
         free(buf);
         return GetDXTData(id, size);
     }
@@ -99,7 +105,24 @@ static void loadHdIndex()
     if (pread(gHdFd, &count, 4, 0) != 4 || count > 100000) { close(gHdFd); gHdFd = -1; return; }
     std::vector<uint32_t> tab(count * 3);
     if (pread(gHdFd, tab.data(), count * 12, 4) != (ssize_t)(count * 12)) { close(gHdFd); gHdFd = -1; return; }
-    for (uint32_t i = 0; i < count; i++) gHd[tab[i * 3]] = {tab[i * 3 + 1], tab[i * 3 + 2]};
+    for (uint32_t i = 0; i < count; i++) gHd[tab[i * 3]] = {tab[i * 3 + 1], tab[i * 3 + 2], nullptr};
+}
+
+// Pause-menu station logos: a game resource of 12-byte header (original 1024x256, 0xBEEF = PNG, 32 bpp) + the PNG.
+static void loadMenuLogos()
+{
+    FILE* f = fopen((gDir + "radio/radio_menu.png").c_str(), "rb");
+    if (!f) return;
+    std::vector<uint8_t> png;
+    uint8_t chunk[65536];
+    for (size_t n; (n = fread(chunk, 1, sizeof chunk, f)) > 0;) png.insert(png.end(), chunk, chunk + n);
+    fclose(f);
+    uint32_t len = (uint32_t)png.size();
+    uint8_t hdr[12] = {0x00, 0x04, 0x00, 0x01, 0xef, 0xbe, 32, 1};
+    memcpy(hdr + 8, &len, 4);
+    gMenuLogos.assign(hdr, hdr + 12);
+    gMenuLogos.insert(gMenuLogos.end(), png.begin(), png.end());
+    gHd[2861] = {0, (uint32_t)gMenuLogos.size(), gMenuLogos.data()};
 }
 
 // "0xe0=Name" per line (UTF-8) -> UTF-16 strings kept for the whole session.
@@ -128,6 +151,7 @@ static void loadNames()
 extern "C" void OnModLoad()
 {
     logger->SetTag("CTW Packs");
+    if (!registerRadioConverter(aml->GetJNIEnvironment())) logger->Error("radio converter not registered");
     gLib = aml->GetLib("libGame.so");
     void* h = aml->GetLibHandle("libGame.so");
     if (!gLib || !h) { logger->Error("libGame.so not loaded"); return; }
@@ -137,6 +161,7 @@ extern "C" void OnModLoad()
     struct stat st;
     gRadio = stat((gDir + "radio").c_str(), &st) == 0 && S_ISDIR(st.st_mode);
     loadHdIndex();
+    loadMenuLogos();
     loadNames();
 
     // Another game version may lack a symbol: that part is then skipped instead of hooking address 0.
@@ -146,6 +171,7 @@ extern "C" void OnModLoad()
     if ((!gDxt.empty() || gRadio) && open) HOOK(NvFOpen, open);
     if (!gHd.empty() && size && data) { HOOK(TryDXTSize, size); HOOK(GetDXTData, data); }
     if (!gNames.empty() && init && GlobalText) HOOK(InitGlobalText, init);
-    logger->Info("DXT.bin %s, CTWHD.bin %zu textures, radio folder %s, %zu names",
-                 gDxt.empty() ? "absent" : "loaded", gHd.size(), gRadio ? "found" : "absent", gNames.size());
+    logger->Info("DXT.bin %s, %zu HD textures, radio folder %s, %zu names, menu logos %s",
+                 gDxt.empty() ? "absent" : "loaded", gHd.size(), gRadio ? "found" : "absent", gNames.size(),
+                 gMenuLogos.empty() ? "absent" : "loaded");
 }

@@ -1,18 +1,21 @@
 # GTA: Chinatown Wars packs
 
 The *Load texture and radio packs* patch loads these files from
-`Android/data/com.rockstargames.gtactw/files/` each time the game starts. Copy them there with a file manager or a
-PC (USB, MTP), then restart the game. Remove or rename a file to go back to the game's own.
+`Android/data/com.rockstargames.gtactw/files/` each time the game starts. *Download HD texture pack* fetches
+`DXT.bin` and `CTWHD.bin` for you and the cheat menu's **Packs** tab imports radio stations, so the tools here are
+only needed to make your own packs.
 
 | File | What it replaces | Made with |
 |---|---|---|
 | `DXT.bin` | The 3D world's texture sheets (buildings, signs; 107 entries of the game's `assets/dxt.bin`) | `ctwtex.py build` |
 | `CTWHD.bin` | 2D art kept in `assets/game.pak`: cutscene panels, character portraits, menus (1,379 PNG textures) | `ctwtex.py sidecar` |
-| `radio/<station>.mp3` | Radio stations (`radio1` … `radio5`, `khalil`, `tortoise`, `wonderwheel`, `anvil`, `chinese`, `dfa`) | `make_radio.py` |
+| `radio/<station>.mp3` | Radio stations (`radio1` … `radio5`, `khalil`, `tortoise`, `wonderwheel`, `anvil`, `chinese`, `dfa`) | `make_radio.py`, or *Import radio* |
 | `radio/names.txt` | Station names shown in the game | `make_radio.py --names` |
+| `radio/ss_radio.png`, `radio/radio_menu.png` | Station logos of the car radio and of the pause menu | `make_radio.py --logos` |
 
-No packs are published with the patches: they are made from the game's own files (textures) or from other people's
-mods (radio), so you make them yourself from your own copies with the tools here.
+Radio music is never shipped. **The GTA IV radio mod for the PSP version needs no tool**: import its zip in the game
+(MOD → Packs → Import radio (.zip)), pick a part, and the phone converts its `.AT3` files and adds the station names
+and logos.
 
 ## Textures: make an HD pack
 
@@ -56,10 +59,13 @@ byte, so a tag at the start plays as static. Stations can be hours long; the gam
 The `gta4-psp-part1` and `gta4-psp-part2` name presets match the two parts of the
 **GTA IV radio mod for the PSP version by [AshleyVT92](https://www.youtube.com/@AshleyVT92)**: point `IN_DIR` at that
 mod's `PSP_GAME/USRDIR/WAD/` folder. Or write your own `names.txt` with `station=Name` lines. Anvil, Sinowav FM
-(`chinese`) and DFA have no text name in the game, only a logo, and the logos are not changed.
+(`chinese`) and DFA have no text name in the game, only a logo.
 
-To switch between two radio sets, keep the other one in a folder with another name (for example `radio_part2`) and
-swap the folder names.
+`--logos LOGO_DIR --apk GAME_APK` puts one image per station (`radio1.png`, `khalil.webp`…) into the game's logo
+sheet, centred in the station's 256x256 frame, and writes it as `ss_radio.png` and `radio_menu.png`.
+
+Copy the output folder to the phone and import it: MOD → Packs → Import radio folder. Import keeps several sets apart:
+keep each in its own folder and import the one you want.
 
 ## Formats
 
