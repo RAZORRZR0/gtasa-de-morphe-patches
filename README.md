@@ -38,7 +38,7 @@ The sections up to *GTA: Chinatown Wars* are about San Andreas.
 > Morphe Manager shows the patches as new: check your selection once before patching.
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.3.0](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/releases/tag/v1.3.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;9 patches total
+> **[v1.4.0](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/releases/tag/v1.4.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;11 patches total
 <details open>
 <summary>📦 GTA: SA&nbsp;&nbsp;•&nbsp;&nbsp;9 patches</summary>
 <br>
@@ -61,6 +61,24 @@ The sections up to *GTA: Chinatown Wars* are about San Andreas.
 | [Fix prop physics](#fix-prop-physics) | Adds GTA Prop Fix, which restores the original game's physics for knocked-over props: lamp posts, traffic lights, signs, bins and hydrants fall and roll with world and car collision instead of DE's physics, and broken pieces land on the ground instead of falling through the map. |  |
 | [Load pak mods](#load-pak-mods) | Loads Unreal .pak mod files from Android/data/com.rockstargames.gtasa.de/paks/ when the game starts, above the game's own paks, so PC Definitive Edition pak mods work as-is. Copy the .pak files there and restart the game. |  |
 | [Play loading screen music](#play-loading-screen-music) | Plays one of the game's eight loading-screen themes while a save loads, like the PC SALoadingMusic mod. |  |
+
+</details>
+
+<details open>
+<summary>📦 GTA: Chinatown Wars&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
+<br>
+
+**Package name:** `com.rockstargames.gtactw`
+
+**🎯 Supported versions:**
+
+| 4.4.243 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Add cheat menu](#add-cheat-menu) | Adds a MOD button that opens a cheat menu over the running game: god mode, infinite ammo, never wanted, one-hit kills, money, weapons, a vehicle spawner sorted by class, indestructible vehicle, nitro, time, weather, traffic and pedestrian density, freezing mission timers and teleporting to the map waypoint. |  |
+| [Load texture and radio packs](#load-texture-and-radio-packs) | Loads texture packs (DXT.bin, CTWHD.bin) and radio stations (radio/*.mp3, radio/names.txt) from Android/data/com.rockstargames.gtactw/files/ when the game starts. No packs are included: see the patches' README for how to make or install them. |  |
 
 </details>
 
