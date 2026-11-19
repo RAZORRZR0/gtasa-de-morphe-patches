@@ -1,3 +1,9 @@
+## [1.5.1-dev.1](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/compare/v1.5.0...v1.5.1-dev.1) (2026-11-19)
+
+### 🐛 Bug Fixes
+
+* Install a Play Store install patched (extract native libraries) ([8a0bc3f](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/commit/8a0bc3fc3bc26ead7754edf72a18a25acf0b503e))
+
 ## [1.5.0](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/compare/v1.4.0...v1.5.0) (2026-11-17)
 
 ### ✨ New Features
