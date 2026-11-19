@@ -21,17 +21,19 @@ The sections up to *GTA: Chinatown Wars* are about San Andreas.
    `.ini` is only written when it does not exist yet (new settings sections are added to it), so re-patching keeps them.
 
 > [!WARNING]
-> **Patch the single full APK (about 860 MB), not a split APK set** (`.apks`, `.apkm`, `.xapk`, or the game as
-> installed from the Play Store, which is a base APK plus asset/config splits). Morphe Manager merges a split set
-> into one APK first, and for this game the merged file is larger than 4 GB, which a zip cannot hold. Patching then
-> fails with:
+> **Do not give Morphe Manager the game as installed from the Play Store** (a base APK plus asset/config splits,
+> or an `.apks`/`.apkm`/`.xapk` of it). The Manager merges a split set into one APK first, and for this game the
+> merged file is larger than 4 GB, which a zip cannot hold. Patching then fails with:
 >
 > ```
 > java.io.IOException: Failed to read zip file '…/merged-….apk'
 > Caused by: java.io.IOException: File exceeds size limit of 4294967295.
 > ```
 >
-> This is a limit of the APK format, not of these patches, and choosing other patches does not help.
+> A Play Store install (patched as installed: only its `base.apk` is patched) installs, but the Play build of 1.87.0
+> ships Google Play's integrity protection (`com.pairip.application.Application` and `libpairipcore.so` in
+> `split_config.arm64_v8a.apk`): a re-signed copy closes right after start. Playing a Play Store install patched is
+> therefore not supported.
 
 > [!NOTE]
 > Patch names follow Morphe's naming guideline since v1.2.0 (for example *SkyGfx* is now *Add PS2 graphics*), so
