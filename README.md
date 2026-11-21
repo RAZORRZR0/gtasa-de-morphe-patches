@@ -40,7 +40,7 @@ The sections up to *GTA: Chinatown Wars* are about San Andreas.
 > Morphe Manager shows the patches as new: check your selection once before patching.
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.5.1-dev.2](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/releases/tag/v1.5.1-dev.2)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;12 patches total
+> **[v1.5.1](https://github.com/RAZORRZR0/gtasa-de-morphe-patches/releases/tag/v1.5.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;12 patches total
 <details open>
 <summary>📦 GTA: SA&nbsp;&nbsp;•&nbsp;&nbsp;9 patches</summary>
 <br>
